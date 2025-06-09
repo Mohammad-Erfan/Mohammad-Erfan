@@ -1,24 +1,37 @@
 import React from 'react';
-import { motion } from 'framer-motion'; // Import motion
+import { motion } from 'framer-motion';
 import { AboutWrapper, SectionTitle, AboutContent, AboutText, AboutImagePlaceholder } from './AboutMe.styled';
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 30 }, // Matched to PortfolioGallery's subtlety
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "circOut" } }
 };
+
+// Optional: Variants for inner content if needed
+// const contentVariants = {
+//     hidden: { opacity: 0, scale: 0.95 },
+//     visible: { opacity: 1, scale: 1, transition: { duration: 0.4, delay: 0.2, ease: "easeOut" } }
+// };
 
 function AboutMe() {
   return (
     <AboutWrapper
-      as={motion.section} // Use 'as' prop to render AboutWrapper as a motion component
+      as={motion.section}
       id="about"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.2 }} // Trigger once, when 20% is in view
+      viewport={{ once: true, amount: 0.15 }} // Adjust viewport amount if needed
       variants={sectionVariants}
     >
       <SectionTitle>About Me</SectionTitle>
-      <AboutContent>
+      <AboutContent
+        // Optional: animate the panel itself after section wrapper is in view
+        // as={motion.div}
+        // initial="hidden"
+        // whileInView="visible"
+        // viewport={{ once: true, amount: 0.5 }}
+        // variants={contentVariants}
+      >
         <AboutImagePlaceholder>Your Image Here</AboutImagePlaceholder>
         <AboutText>
           <p>

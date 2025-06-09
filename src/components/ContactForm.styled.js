@@ -2,33 +2,34 @@ import styled from 'styled-components';
 
 export const ContactWrapper = styled.section`
   padding: 4rem 2rem;
-  background: #23233b; // Slightly different dark background
-  text-align: center;
+  background: #181818; // Section panel background
+  // border-top: 1px solid #282828;
 
   @media (max-width: 768px) {
     padding: 3rem 1rem;
   }
 `;
 
-// Re-using SectionTitle style definition
 export const SectionTitle = styled.h2`
-  font-size: 2.5rem;
-  color: #9c27b0; // Primary Purple
-  margin-bottom: 3rem;
+  font-size: 2.2rem;
+  color: #F5F5F5;
+  margin-bottom: 3.5rem;
+  text-align: center;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 1.8rem;
+    margin-bottom: 2.5rem;
   }
 `;
 
 export const FormStyled = styled.form`
-  max-width: 600px;
+  max-width: 650px; // Slightly wider
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 1.25rem; // Adjusted gap
 `;
 
 export const InputGroup = styled.div`
@@ -39,58 +40,76 @@ export const InputGroup = styled.div`
 
 export const Label = styled.label`
   margin-bottom: 0.5rem;
-  color: #e0e0e0;
-  font-size: 0.9rem;
+  color: #B0B0B0; // Muted label color
+  font-size: 0.85rem; // Smaller label
+  font-weight: 400;
+`;
+
+const commonInputStyles = `
+  padding: 0.75rem 1rem; // Consistent padding
+  border-radius: 5px; // Slightly softer radius than cards
+  border: 1px solid #383838; // Darker, subtle border
+  background: #222222; // Dark input background
+  color: #E0E0E0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #A095E5; // Accent color on focus
+    box-shadow: 0 0 0 2px rgba(160, 149, 229, 0.3); // Subtle glow on focus
+  }
+  &::placeholder {
+    color: #666;
+  }
 `;
 
 export const Input = styled.input`
-  padding: 0.8rem 1rem;
-  border-radius: 5px;
-  border: 1px solid #4f4f6a; // Darker border
-  background: #1a1a2e; // Dark input background
-  color: #e0e0e0;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-
-  &:focus {
-    outline: none;
-    border-color: #9c27b0; // Purple border on focus
-  }
+  ${commonInputStyles}
 `;
 
 export const Textarea = styled.textarea`
-  padding: 0.8rem 1rem;
-  border-radius: 5px;
-  border: 1px solid #4f4f6a;
-  background: #1a1a2e;
-  color: #e0e0e0;
-  font-size: 1rem;
-  min-height: 150px;
-  resize: vertical; // Allow vertical resize
-  transition: border-color 0.3s ease;
-
-  &:focus {
-    outline: none;
-    border-color: #9c27b0;
-  }
+  ${commonInputStyles}
+  min-height: 120px; // Adjusted height
+  resize: vertical;
 `;
 
 export const SubmitButton = styled.button`
-  background: #9c27b0; // Primary purple
-  color: white;
-  padding: 0.8rem 2.5rem;
-  border-radius: 50px; // Pill shape
-  border: none;
+  background: #A095E5; // Consistent with HeroButton
+  color: #121212;
+  padding: 0.8rem 2rem;
+  border-radius: 6px;
+  border: 1px solid #A095E5;
   text-decoration: none;
-  font-size: 1.1rem;
-  font-weight: bold;
+  font-size: 0.95rem; // Slightly smaller than hero
+  font-weight: 700;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4);
-  align-self: center; // Center button if form is wider
+  transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  align-self: center; // Center button
+  margin-top: 1rem; // Space above button
 
-  &:hover {
-    background: #7b1fa2; // Darker purple on hover
-    transform: translateY(-3px);
+  &:hover:not(:disabled) {
+    background: #BEB6F0;
+    border-color: #BEB6F0;
+    color: #121212;
+    transform: translateY(-2px);
   }
+
+  &:active:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+`;
+
+export const SubmissionMessage = styled.p`
+  color: ${({ type }) => (type === 'success' ? '#66BB6A' : '#EF5350')}; // Softer success/error colors
+  font-size: 0.9rem;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: 400;
 `;

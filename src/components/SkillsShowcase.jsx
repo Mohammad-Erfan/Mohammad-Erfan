@@ -1,10 +1,11 @@
 import React from 'react';
-import { motion } from 'framer-motion'; // Import motion
+import { motion } from 'framer-motion';
 import {
   SkillsWrapper,
   SectionTitle,
-  SkillsGrid,
-  SkillCard,
+  SkillsGrid as StyledSkillsGrid, // Rename for clarity
+  SkillCard as StyledSkillCard,
+  SkillHeader,
   SkillIconPlaceholder,
   SkillName,
   SkillDescription
@@ -31,15 +32,25 @@ const skillsData = [
   }
 ];
 
+// Consistent animation variants
 const sectionVariants = {
-  hidden: { opacity: 0, y: 50 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 30 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "circOut" } }
+};
+
+const gridContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2, ease: "circOut" }
+  }
 };
 
 const cardVariants = {
-  hidden: { opacity: 0, scale: 0.8 },
-  visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeOut" } }
+  hidden: { opacity: 0, y: 15 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "circOut" } }
 };
+
 
 function SkillsShowcase() {
   return (
@@ -48,25 +59,31 @@ function SkillsShowcase() {
       id="skills"
       initial="hidden"
       whileInView="visible"
-      viewport={{ once: true, amount: 0.1 }}
+      viewport={{ once: true, amount: 0.15 }}
       variants={sectionVariants}
     >
       <SectionTitle>My Expertise</SectionTitle>
-      <SkillsGrid>
-        {skillsData.map((skill, index) => ( // Added index for potential stagger
-          <SkillCard
+      <StyledSkillsGrid // Now a motion component
+        as={motion.div}
+        variants={gridContainerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        {skillsData.map(skill => (
+          <StyledSkillCard
             key={skill.id}
-            as={motion.div} // Animate each card
+            as={motion.div} // Already a motion component
             variants={cardVariants}
-            // Stagger children if SkillsGrid is a motion component with staggerChildren variant
-            // For simplicity here, applying variants directly to cards, will animate together with section or slightly delayed if section has staggerChildren
           >
-            <SkillIconPlaceholder>{skill.iconText}</SkillIconPlaceholder>
-            <SkillName>{skill.name}</SkillName>
+            <SkillHeader>
+              <SkillIconPlaceholder>{skill.iconText}</SkillIconPlaceholder>
+              <SkillName>{skill.name}</SkillName>
+            </SkillHeader>
             <SkillDescription>{skill.description}</SkillDescription>
-          </SkillCard>
+          </StyledSkillCard>
         ))}
-      </SkillsGrid>
+      </StyledSkillsGrid>
     </SkillsWrapper>
   );
 }

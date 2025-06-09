@@ -1,25 +1,25 @@
-import React, { useState } from 'react'; // Import useState
-import { NavWrapper, NavLogo, NavLinks, NavLinkItem, NavLink, MobileIcon } from './Navbar.styled'; // Import MobileIcon
+import React, { useState } from 'react';
+import { Menu, X } from 'react-feather'; // Import Menu and X icons
+import { NavWrapper, NavLogo, NavLinks, NavLinkItem, NavLink, MobileIcon } from './Navbar.styled';
 
 function Navbar() {
-  const [isOpen, setIsOpen] = useState(false); // Initialize isOpen state
+  const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
   };
 
-  // Function to close the menu, can be used by NavLink clicks
   const closeMenu = () => {
     setIsOpen(false);
   };
 
   return (
     <NavWrapper>
-      <NavLogo href="#" onClick={isOpen ? closeMenu : null}>Your Name/Logo</NavLogo>
+      <NavLogo href="#" onClick={isOpen ? closeMenu : undefined}>Your Name/Logo</NavLogo>
       <MobileIcon onClick={toggleMenu}>
-        {isOpen ? <>&times;</> : <>&#9776;</>} {/* Simple text icons: X and Burger */}
+        {isOpen ? <X size={28} /> : <Menu size={28} />} {/* Use Feather icons, adjust size */}
       </MobileIcon>
-      <NavLinks isOpen={isOpen}> {/* Pass isOpen prop */}
+      <NavLinks isOpen={isOpen}>
         <NavLinkItem><NavLink href="#about" onClick={closeMenu}>About</NavLink></NavLinkItem>
         <NavLinkItem><NavLink href="#skills" onClick={closeMenu}>Skills</NavLink></NavLinkItem>
         <NavLinkItem><NavLink href="#portfolio" onClick={closeMenu}>Portfolio</NavLink></NavLinkItem>

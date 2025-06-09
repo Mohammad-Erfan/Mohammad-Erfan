@@ -1,91 +1,107 @@
-import styled, { css } from 'styled-components'; // Import css
+import styled, { css } from 'styled-components';
 
 export const NavWrapper = styled.nav`
-  background: #2c003e;
-  padding: 1rem 2rem;
+  background: #1C1C1C; // Slightly different dark shade for navbar
+  padding: 0.8rem 2rem; // More compact padding
   display: flex;
   justify-content: space-between;
   align-items: center;
   position: sticky;
   top: 0;
   z-index: 1000;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+  // box-shadow: 0 1px 3px rgba(0,0,0,0.5); // Softer shadow or border
+  border-bottom: 1px solid #333333; // Border for separation
 `;
 
 export const NavLogo = styled.a`
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #e0e0e0;
+  font-size: 1.5rem; // Slightly smaller
+  font-weight: 700; // Bold
+  color: #F5F5F5;
   text-decoration: none;
   &:hover {
-    color: #bb69c9;
+    color: #A095E5; // Use new link hover color
   }
 `;
 
-// Styles for the mobile menu icon (burger)
 export const MobileIcon = styled.div`
-  display: none; // Hidden by default, shown on mobile
-  font-size: 1.8rem;
-  color: #e0e0e0;
+  display: none;
+  // font-size: 1.6rem; // Remove if directly sizing SVG via props
+  color: #E0E0E0; // SVG will inherit this color
   cursor: pointer;
+  line-height: 0; // Helps to align SVGs if they have extra space
 
   @media (max-width: 768px) {
-    display: block; // Show on mobile
+    display: block;
   }
 `;
 
 export const NavLinks = styled.ul`
   list-style: none;
   display: flex;
-  align-items: center; // Align items for desktop view
+  align-items: center;
   margin: 0;
   padding: 0;
 
   @media (max-width: 768px) {
-    display: flex; // Use flex for column layout
+    display: flex;
     flex-direction: column;
-    align-items: center; // Center items in the overlay
-    justify-content: center; // Center items vertically
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    height: 100vh; // Full screen overlay
-    position: absolute;
-    top: 0; // Position from the top of NavWrapper (or viewport if fixed)
-    left: -100%; // Start off-screen
-    background: #2c003e; // Same as navbar or slightly more opaque
-    transition: left 0.3s ease-in-out; // Smooth transition for sliding in/out
-    padding-top: 3.5rem; // Add padding to avoid overlap with status bar or notch
+    height: 100vh;
+    position: fixed; // Fixed position for full viewport coverage
+    top: 0;
+    left: -100%;
+    background: rgba(28, 28, 28, 0.98); // Slightly transparent dark background for overlay
+    backdrop-filter: blur(5px); // Blur effect for modern UI feel
+    transition: left 0.3s ease-in-out;
+    padding-top: 0; // Reset padding, content will be centered
 
-    // Conditional styling based on 'isOpen' prop
     ${({ isOpen }) => isOpen && css`
-      left: 0; // Slide in when open
+      left: 0;
     `}
   }
 `;
 
 export const NavLinkItem = styled.li`
-  margin-left: 2rem;
+  margin-left: 1.5rem; // Slightly reduced margin
 
   @media (max-width: 768px) {
     margin-left: 0;
-    margin-bottom: 2rem; // Space out links vertically in mobile menu
+    margin-bottom: 1.5rem;
     width: 100%;
     text-align: center;
   }
 `;
 
 export const NavLink = styled.a`
-  color: #e0e0e0;
+  color: #C0C0C0; // Slightly muted link color for navbar
   text-decoration: none;
-  font-size: 1rem; // Base font size
-  transition: color 0.3s ease;
+  font-size: 0.95rem; // Precise font size
+  font-weight: 400; // Regular weight
+  padding: 0.5rem 0.75rem; // Add some padding for better click targets / hover bg
+  border-radius: 4px; // Slight border radius for hover bg
+  transition: color 0.2s ease, background-color 0.2s ease;
 
   &:hover {
-    color: #bb69c9;
+    color: #F5F5F5; // Brighter text on hover
+    background-color: #333333; // Subtle background highlight on hover
   }
 
+  // Example for an "active" link style (if we implement scrollspy later)
+  // &.active {
+  //   color: #F5F5F5;
+  //   background-color: #4A4A4A;
+  // }
+
   @media (max-width: 768px) {
-    font-size: 1.5rem; // Larger font size for mobile menu links
-    display: block; // Make the whole area clickable
-    padding: 0.5rem 0; // Add some padding
+    font-size: 1.3rem; // Larger for mobile overlay
+    padding: 0.75rem 1rem;
+    display: block;
+    width: 80%;
+    margin: 0 auto; // Center the link items
+    &:hover {
+      background-color: #383838;
+    }
   }
 `;
