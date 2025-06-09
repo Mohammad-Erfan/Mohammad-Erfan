@@ -1,9 +1,22 @@
 import React from 'react';
+import { motion } from 'framer-motion'; // Import motion
 import { AboutWrapper, SectionTitle, AboutContent, AboutText, AboutImagePlaceholder } from './AboutMe.styled';
+
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
 
 function AboutMe() {
   return (
-    <AboutWrapper id="about">
+    <AboutWrapper
+      as={motion.section} // Use 'as' prop to render AboutWrapper as a motion component
+      id="about"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }} // Trigger once, when 20% is in view
+      variants={sectionVariants}
+    >
       <SectionTitle>About Me</SectionTitle>
       <AboutContent>
         <AboutImagePlaceholder>Your Image Here</AboutImagePlaceholder>

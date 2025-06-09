@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion'; // Import motion
 import {
   SkillsWrapper,
   SectionTitle,
@@ -30,13 +31,36 @@ const skillsData = [
   }
 ];
 
+const sectionVariants = {
+  hidden: { opacity: 0, y: 50 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
+};
+
+const cardVariants = {
+  hidden: { opacity: 0, scale: 0.8 },
+  visible: { opacity: 1, scale: 1, transition: { duration: 0.4, ease: "easeOut" } }
+};
+
 function SkillsShowcase() {
   return (
-    <SkillsWrapper id="skills">
+    <SkillsWrapper
+      as={motion.section}
+      id="skills"
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.1 }}
+      variants={sectionVariants}
+    >
       <SectionTitle>My Expertise</SectionTitle>
       <SkillsGrid>
-        {skillsData.map(skill => (
-          <SkillCard key={skill.id}>
+        {skillsData.map((skill, index) => ( // Added index for potential stagger
+          <SkillCard
+            key={skill.id}
+            as={motion.div} // Animate each card
+            variants={cardVariants}
+            // Stagger children if SkillsGrid is a motion component with staggerChildren variant
+            // For simplicity here, applying variants directly to cards, will animate together with section or slightly delayed if section has staggerChildren
+          >
             <SkillIconPlaceholder>{skill.iconText}</SkillIconPlaceholder>
             <SkillName>{skill.name}</SkillName>
             <SkillDescription>{skill.description}</SkillDescription>
